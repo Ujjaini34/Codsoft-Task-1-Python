@@ -1,0 +1,78 @@
+# todo_list.py
+
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def create_task(self):
+        task_name = input("Enter task name: ")
+        task_description = input("Enter task description: ")
+        task_due_date = input("Enter task due date (YYYY-MM-DD): ")
+        task_priority = input("Enter task priority (High, Medium, Low): ")
+
+        task = {
+            "name": task_name,
+            "description": task_description,
+            "due_date": task_due_date,
+            "priority": task_priority,
+            "completed": False
+        }
+
+        self.tasks.append(task)
+        print(f"Task '{task_name}' created!")
+
+    def update_task(self):
+        task_name = input("Enter task name to update: ")
+        for task in self.tasks:
+            if task["name"] == task_name:
+                task["description"] = input("Enter new task description: ")
+                task["due_date"] = input("Enter new task due date (YYYY-MM-DD): ")
+                task["priority"] = input("Enter new task priority (High, Medium, Low): ")
+                print(f"Task '{task_name}' updated!")
+                return
+        print(f"Task '{task_name}' not found!")
+
+    def track_tasks(self):
+        print("To-Do List:")
+        for task in self.tasks:
+            status = "Completed" if task["completed"] else "Pending"
+            print(f"  {task['name']} - {task['description']} - {task['due_date']} - {task['priority']} - {status}")
+
+    def mark_task_completed(self):
+        task_name = input("Enter task name to mark as completed: ")
+        for task in self.tasks:
+            if task["name"] == task_name:
+                task["completed"] = True
+                print(f"Task '{task_name}' marked as completed!")
+                return
+        print(f"Task '{task_name}' not found!")
+
+def main():
+    todo_list = ToDoList()
+
+    while True:
+        print("To-Do List Menu:")
+        print("  1. Create Task")
+        print("  2. Update Task")
+        print("  3. Track Tasks")
+        print("  4. Mark Task Completed")
+        print("  5. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            todo_list.create_task()
+        elif choice == "2":
+            todo_list.update_task()
+        elif choice == "3":
+            todo_list.track_tasks()
+        elif choice == "4":
+            todo_list.mark_task_completed()
+        elif choice == "5":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again!")
+
+if __name__ == "__main__":
+    main()
